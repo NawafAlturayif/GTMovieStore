@@ -15,8 +15,7 @@
     </script>
     <link rel="stylesheet" type="text/css"
           href="{% static 'css/style.css' %}">
-    <meta name="viewport" content="width=device-width,
-      initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
     <!-- Header -->
@@ -25,7 +24,7 @@
       <div class="container">
         <a class="navbar-brand"
            href="{% url 'home.index' %}">
-          <img src="{% static 'img/logo.png' %}" alt="logo"
+          <img src="{% static 'img/gt_logo.png' %}" alt="logo"
                height="40" />
         </a>
         <button class="navbar-toggler" type="button"
@@ -79,7 +78,7 @@
             <b>MOVIES STORE</b>
             <hr />
             <p>
-              Welcome to Movies Store, your premier online
+              Welcome to GT Movies Store, your premier online
               destination for a cinematic adventure like no
               other! Dive into the world of movies from the
               comfort of your own home with our user-
@@ -94,19 +93,25 @@
               href="{% url 'home.about' %}">
               About
             </a></p>
+            <p><a class="nav-link"
+              href="{% url 'movies.index' %}">
+              Movies
+            </a></p>
+            <p><a class="nav-link"
+              href="{% url 'cart.index' %}">
+              Cart
+            </a></p>
           </div>
           <div class="col-md-3 col-lg-3 col-xl-3 mx-auto
                mb-4">
             <b>CONTACT</b>
             <hr />
             <p><i class="fas fa-home me-2"></i>
-              150-2345 Tokyo-to, Japan
+              Atlanta, Georgia
             </p>
             <p><i class="fas fa-envelope me-2"></i>
-              info@moviesstore.com
-            </p>
-            <p><i class="fas fa-phone me-2"></i>
-              +81 03-3333-3333
+              Nalturayif3@gatech.edu
+            </p>              
             </p>
           </div>
         </div>
@@ -117,17 +122,18 @@
            justify-content-between">
         <div class="me-5 text-white">
           <span>DESIGNED BY
-            <a href="https://www.x.com/danielgarax"
-            target="_blank">DANIEL CORREA</a> &
-            <a href="https://www.x.com/greglim81"
-            target="_blank">GREG LIM</a>
+            <a href="https://sites.google.com/view/nawaf8899"
+            target="_blank">Nawaf Alturayif</a>
           </span>
         </div>
         <div class="text-white">
-          <span>© Copyright - 2024</span>
+          <span>© Copyright - 2025</span>
         </div>
       </div>
     </section>
     <!-- Footer -->
   </body>
 </html>
+
+{% block scripts %}
+{% endblock scripts %}
