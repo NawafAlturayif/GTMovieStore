@@ -19,12 +19,15 @@ from django.urls import path, include
 
 from django.conf.urls.static import static
 from django.conf import settings
+from home import views as home_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('movies/', include('movies.urls')),
     path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
+    path('update_server/', home_views.update_server),
 ]
 urlpatterns += static(settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT)
