@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+  <div class="p-3">
+    <div class="container">
+      <div class="row mt-3">
+        <div class="col mx-auto mb-3">
+          <h2>Comments</h2>
+          <hr />
+        </div>
+      </div>
+      <div class="row m-1">
+        <table class="table table-bordered table-striped text-center">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Movie</th>
+              <th>User</th>
+              <th>Comment</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in template_data.reviews %}
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.movie.name }}</td>
+              <td>{{ item.user.username }}</td>
+              <td>{{ item.comment }}</td>
+              <td>{{ item.date|date:"Y-m-d" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock content %}
