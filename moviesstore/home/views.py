@@ -15,16 +15,16 @@ def about(request):
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import sys
+import git
 
 @csrf_exempt
 def update_server(request):
     if request.method == "POST":
         try:
-            print("Webhook received", file=sys.stderr)
-            # We will add the git commands back in later
-            return HttpResponse("Webhook received successfully")
+            repo = git.Repo("/home/Nawaf1099901/GTMovieStore")
+            origin = repo.remotes.origin
+            origin.pull()
+            return HttpResponse("Updated server successfully")
         except Exception as e:
-            print(f"Error in webhook: {e}", file=sys.stderr)
             return HttpResponse(str(e), status=500)
     return HttpResponse("Couldn't update the server", status=400)
