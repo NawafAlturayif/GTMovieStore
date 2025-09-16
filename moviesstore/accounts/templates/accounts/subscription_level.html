@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">{{ template_data.title }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">Your Current Subscription Tier: <span class="badge bg-primary">{{ template_data.subscription_tier }}</span></h2>
+            <p class="card-text">Total amount spent on movies: <strong>${{ template_data.total_spent|floatformat:2 }}</strong></p>
+
+            <hr>
+
+            <h3>Subscription Tier Definitions:</h3>
+            <ul>
+                <li><strong>Basic:</strong> Less than $15 spent.</li>
+                <li><strong>Medium:</strong> Between $15 and $30 spent.</li>
+                <li><strong>Premium:</strong> More than $30 spent.</li>
+            </ul>
+
+            <p class="mt-4">Thank you for being a valued member of our movie store!</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

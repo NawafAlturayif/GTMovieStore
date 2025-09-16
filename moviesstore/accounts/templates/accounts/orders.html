@@ -5,6 +5,9 @@
     <div class="row mt-3">
       <div class="col mx-auto mb-3">
         <h2>My Orders</h2>
+        <p>
+            <a href="{% url 'accounts.subscription_level' %}" class="btn btn-info">View Subscription Level</a>
+        </p>
         <hr />{% for order in template_data.orders %}
         <div class="card mb-4">
           <div class="card-header">
