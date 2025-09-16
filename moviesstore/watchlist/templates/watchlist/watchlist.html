@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>My Watchlist</h1>
+    <div id="watchlist-container" class="row">
+        {% for item in watchlist %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 watchlist-item" data-item-id="{{ item.id }}" data-rating="{{ item.rating }}">
+                    <img src="{{ item.movie.image.url }}" class="card-img-top" alt="{{ item.movie.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.movie.title }}</h5>
+                        <p class="card-text">{{ item.movie.description }}</p>
+                        <div class="reviews">
+                            <h6>Reviews</h6>
+                            <ul class="list-group list-group-flush">
+                            {% for review in item.movie.review_set.all %}
+                                <li class="list-group-item">
+                                    <strong>{{ review.user.username }}</strong>: {{ review.comment }}
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No reviews yet.</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="rating">
+                            <select class="star-rating form-select" data-item-id="{{ item.id }}">
+                                <option value="0" {% if item.rating == 0 %}selected{% endif %}>-</option>
+                                <option value="1" {% if item.rating == 1 %}selected{% endif %}>&#9733;</option>
+                                <option value="2" {% if item.rating == 2 %}selected{% endif %}>&#9733;&#9733;</option>
+                                <option value="3" {% if item.rating == 3 %}selected{% endif %}>&#9733;&#9733;&#9733;</option>
+                                <option value="4" {% if item.rating == 4 %}selected{% endif %}>&#9733;&#9733;&#9733;&#9733;</option>
+                                <option value="5" {% if item.rating == 5 %}selected{% endif %}>&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                            </select>
+                            <a href="{% url 'watchlist:remove_from_watchlist' item.id %}" class="btn btn-danger mt-2">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col">
+                <p>Your watchlist is empty.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    function reorderWatchlist() {
+        var container = $('#watchlist-container');
+        var items = container.children('.col-md-4');
+
+        items.sort(function(a, b) {
+            var ratingA = parseInt($(a).find('.watchlist-item').data('rating'));
+            var ratingB = parseInt($(b).find('.watchlist-item').data('rating'));
+            return ratingB - ratingA;
+        });
+
+        container.append(items);
+    }
+
+    reorderWatchlist();
+
+    $('.star-rating').change(function() {
+        var rating = $(this).val();
+        var itemId = $(this).data('item-id');
+        var watchlistItem = $(this).closest('.watchlist-item');
+
+        $.ajax({
+            url: `/watchlist/update/${itemId}/`,
+            type: 'POST',
+            data: {
+                'rating': rating,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    watchlistItem.data('rating', rating);
+                    reorderWatchlist();
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -27,6 +27,7 @@ urlpatterns = [
     path('movies/', include('movies.urls')),
     path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
+    path('watchlist/', include('watchlist.urls')),
     path('update_server/', home_views.update_server),
 ]
 urlpatterns += static(settings.MEDIA_URL,

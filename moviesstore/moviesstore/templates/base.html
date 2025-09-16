@@ -48,6 +48,8 @@
               d-lg-block"></div>
             {% if user.is_authenticated %}
             <a class="nav-link"
+              href="{% url 'watchlist:watchlist' %}">Watchlist</a>
+            <a class="nav-link"
               href="{% url 'accounts.orders' %}">Orders
             </a>
             <a class="nav-link"
@@ -132,8 +134,7 @@
       </div>
     </section>
     <!-- Footer -->
+    {% block scripts %}
+    {% endblock scripts %}
   </body>
 </html>
-
-{% block scripts %}
-{% endblock scripts %}
