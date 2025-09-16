@@ -15,28 +15,16 @@ def about(request):
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import git
 import logging
-
-logging.basicConfig(filename='/tmp/webhook.log', level=logging.INFO)
 
 @csrf_exempt
 def update_server(request):
     if request.method == "POST":
         try:
+            logging.basicConfig(filename='/tmp/webhook.log', level=logging.INFO)
             logging.info('Webhook received')
-            repo = git.Repo("/home/Nawaf1099901/GTMovieStore")
-            origin = repo.remotes.origin
-            
-            logging.info('Fetching from origin')
-            origin.fetch()
-            
-            logging.info('Resetting to origin/main')
-            repo.head.reset(origin.refs.main, working_tree=True)
-            logging.info('Reset successful')
-            
-            return HttpResponse("Updated server successfully")
+            return HttpResponse("Webhook received successfully")
         except Exception as e:
-            logging.error(f'Error updating server: {e}')
+            # This part should not be reached, but it's good to have it
             return HttpResponse(str(e), status=500)
     return HttpResponse("Couldn't update the server", status=400)
